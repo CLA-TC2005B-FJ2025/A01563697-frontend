@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
-import { deletePersonaje } from '../api';
+import React, { useState, useEffect  } from 'react';
+import { deletePersonaje, getAllPersonajes } from '../api';
+
 
 function EliminarPersonaje() {
     const [idEliminar, setIdEliminar] = useState('');
     const [mensaje, setMensaje] = useState('');
     const [error, setError] = useState(null);
+    const [personajes, setPersonajes] = useState([]);
+
+
+    useEffect(() => {
+        const fetchPersonajes = async () => {
+            try {
+                const data = await getAllPersonajes();
+                setPersonajes(data);
+            } catch (error) {
+                setError('Error al cargar personajes');
+            }
+        };
+
+        fetchPersonajes();
+    }, []);
 
     const handleChange = (e) => {
         setIdEliminar(e.target.value);
@@ -17,6 +33,8 @@ function EliminarPersonaje() {
             setMensaje(response.message);
             setError(null);
             setIdEliminar('');
+            const data = await getAllPersonajes();
+            setPersonajes(data);
         } catch (error) {
             setError(error.message);
             setMensaje('');
@@ -26,13 +44,15 @@ function EliminarPersonaje() {
     return (
         <div>
             <h2>Eliminar Personaje</h2>
+
             <form onSubmit={handleSubmit}>
-                <div>
+                <div> 
                     <label>ID del Personaje a Eliminar:</label>
                     <input type="number" value={idEliminar} onChange={handleChange} required />
                 </div>
                 <button type="submit">Eliminar Personaje</button>
             </form>
+
             {mensaje && <p style={{ color: 'green' }}>{mensaje}</p>}
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
         </div>

@@ -9,17 +9,17 @@ const handleResponse = async (response) => {
 };
 
 export const getAllPersonajes = async () => {
-    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/}/personajes`);
+    const response = await fetch(`https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/personajes`);
     return handleResponse(response);
 };
 
 export const getPersonajeById = async (id) => {
-    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/}/personajes/${id}`);
+    const response = await fetch(`https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/personajes/${id}`);
     return handleResponse(response);
 };
 
 export const createPersonaje = async (personaje) => {
-    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/}/personajes`, {
+    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev}/personajes`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const createPersonaje = async (personaje) => {
 };
 
 export const updatePersonaje = async (id, personaje) => {
-    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/}/personajes/${id}`, {
+    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev}/personajes/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export const updatePersonaje = async (id, personaje) => {
 };
 
 export const deletePersonaje = async (id) => {
-    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev/}/personajes/${id}`, {
+    const response = await fetch(`{https://orange-parakeet-v6r9g7vg64jvc7xq-5000.app.github.dev}/personajes/${id}`, {
         method: 'DELETE',
     });
     if (!response.ok) {
@@ -49,4 +49,5 @@ export const deletePersonaje = async (id) => {
         throw new Error(errorData.error || 'Error al eliminar el personaje');
     }
     return { message: 'Personaje eliminado exitosamente' };
+
 };
